@@ -57,12 +57,13 @@ export const colors = {
     surface16: '#131519',
     surface17: '#161618',
     warning07: '#FFD740',
-    disabled01: '#00000040',
+    disabled01: '#00000040'
 };
 
 // Mapping between the token used and the color
 export const colorMap = {
     // ----- Surfaces -----
+
     // Default page background
     uiBackground: 'surface01',
 
@@ -142,6 +143,7 @@ export const colorMap = {
     iconError: 'error06',
 
     // ----- Forms -----
+
     field01: 'surface04',
 
     // ----- Feedback -----
@@ -156,7 +158,6 @@ export const colorMap = {
 
     // ----- Support -----
 
-    // Backgrounds for avatars
     support01: 'support01',
     support02: 'support02',
     support03: 'support03',
@@ -178,6 +179,7 @@ export const colorMap = {
     action04: 'primary11',
     action03Focus: 'surface07',
     action03Disabled: 'transparent',
+    actionDisabled: 'surface09',
     icon05: 'surface04',
     text05: 'surface06',
     text06: 'surface03',
@@ -206,7 +208,7 @@ export const colorMap = {
     field02: 'surface11',
     field02Hover: 'primary09',
     field02Focus: 'primary05',
-    field02Disabled: 'surface06',
+    field02Disabled: 'surface06'
 };
 
 
@@ -221,7 +223,7 @@ export const shape = {
 };
 
 export const spacing
-    = [ 0, 4, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128 ];
+    = [0, 4, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128];
 
 export const typography = {
     labelRegular: {
