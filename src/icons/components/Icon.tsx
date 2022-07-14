@@ -136,7 +136,7 @@ export default function Icon(props: Props) {
         onClick,
         size,
         src: IconComponent,
-        style = {display: 'flex'},
+        style,
         ariaHasPopup,
         ariaLabel,
         ariaDisabled,

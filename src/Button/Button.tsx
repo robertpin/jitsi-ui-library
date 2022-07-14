@@ -12,6 +12,8 @@ interface ButtonProps {
   onClick: () => void;
 
   disabled?: boolean;
+
+  size?: 'small' | 'medium' | 'large';
 }
 
 const useStyles = makeStyles((theme: any) => {
@@ -40,6 +42,10 @@ const useStyles = makeStyles((theme: any) => {
       '&:focus': {
         outline: 0,
         boxShadow: `0px 0px 0px 2px ${theme.palette.focus01}`
+      },
+
+      '& svg': {
+        fill: theme.palette.icon01
       }
     },
 
@@ -55,6 +61,10 @@ const useStyles = makeStyles((theme: any) => {
 
       '&:active': {
         backgroundColor: theme.palette.action02Active
+      },
+
+      '& svg': {
+        fill: theme.palette.icon04
       }
     },
 
@@ -94,6 +104,38 @@ const useStyles = makeStyles((theme: any) => {
       '&:active': {
         backgroundColor: theme.palette.disabled01,
         color: theme.palette.text03,
+      },
+
+      '& svg': {
+        fill: theme.palette.icon03
+      }
+    },
+
+    iconButton: {
+      padding: '10px'
+    },
+
+    textWithIcon: {
+      marginLeft: `${theme.spacing(2)}px`
+    },
+
+    small: {
+      padding: '8px 16px',
+      ...withPixelLineHeight(theme.typography.labelBold),
+
+      '&.iconButton': {
+        padding: '6px'
+      }
+    },
+
+    medium: {},
+
+    large: {
+      padding: '13px 16px',
+      ...withPixelLineHeight(theme.typography.bodyShortBoldLarge),
+
+      '&.iconButton': {
+        padding: '14px'
       }
     }
   }
@@ -107,18 +149,21 @@ export const Button = ({
   icon,
   type = 'primary',
   disabled,
+  size = 'medium',
   onClick
 }: ButtonProps) => {
   const styles = useStyles();
   return (
     <button
       type="button"
-      className={`${styles.button} ${styles[type]} ${disabled ? styles.disabled : ''}`}
+      className={`${styles.button} ${styles[type]} ${
+        disabled ? styles.disabled : ''} ${
+        icon && !text ? `${styles.iconButton} iconButton` : ''} ${styles[size]}`}
       disabled={disabled}
       onClick={onClick}
       >
-      {icon && <Icon src={icon} color="#fff" />}
-      {text}
+      {icon && <Icon src={icon} style={{display: 'flex'}} />}
+      {text && <span className={icon ? styles.textWithIcon : ''}>{text}</span>}
     </button>
   );
 };
