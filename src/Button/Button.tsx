@@ -141,10 +141,7 @@ const useStyles = makeStyles((theme: any) => {
   }
 })
 
-/**
- * Primary UI component for user interaction
- */
-export const Button = ({
+const Button = ({
   text,
   icon,
   type = 'primary',
@@ -167,3 +164,5 @@ export const Button = ({
     </button>
   );
 };
+
+export default Button;
