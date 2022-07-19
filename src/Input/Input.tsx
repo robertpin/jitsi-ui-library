@@ -1,16 +1,21 @@
 import { makeStyles } from "@material-ui/core";
-import React from "react";
+import clsx from "clsx";
+import React, { useCallback } from "react";
+import Icon from "../icons/components/Icon";
+import { IconCloseCircle } from "../icons/svg";
 import { isMobileBrowser, withPixelLineHeight } from "../utils";
 
 interface InputProps {
     label?: string;
-    value?: string;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    value: string;
+    onChange: (value: string) => void;
     bottomLabel?: string;
     disabled?: boolean;
     error?: boolean;
     type?: 'text' | 'email' | 'number' | 'password';
     placeholder?: string;
+    clearable?: boolean;
+    icon?: any;
 }
 
 const useStyles = makeStyles((theme: any) => {
@@ -30,6 +35,11 @@ const useStyles = makeStyles((theme: any) => {
             }
         },
 
+        fieldContainer: {
+            position: 'relative',
+            display: 'flex'
+        },
+
         input: {
             backgroundColor: theme.palette.ui03,
             color: theme.palette.text01,
@@ -39,6 +49,7 @@ const useStyles = makeStyles((theme: any) => {
             border: 0,
             height: '40px',
             boxSizing: 'border-box',
+            width: '100%',
 
             '&::placeholder': {
                 color: theme.palette.text02
@@ -62,6 +73,27 @@ const useStyles = makeStyles((theme: any) => {
             '&.error': {
                 boxShadow: `0px 0px 0px 2px ${theme.palette.textError}`
             }
+        },
+
+        icon: {
+            position: 'absolute',
+            top: '10px',
+            left: '16px'
+        },
+
+        iconInput: {
+            paddingLeft: '46px'
+        },
+
+        clearableInput: {
+            paddingRight: '46px'
+        },
+
+        clearIcon: {
+            position: 'absolute',
+            right: '16px',
+            top: '10px',
+            cursor: 'pointer'
         },
 
         bottomLabel: {
@@ -88,22 +120,33 @@ const Input = ({
     disabled,
     error,
     type = 'text',
-    placeholder
+    placeholder,
+    clearable = false,
+    icon
 }: InputProps) => {
     const styles = useStyles();
     const isMobile = isMobileBrowser();
+
+    const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value), []);
+
+    const clearInput = useCallback(() => onChange(''), []);
     return <div className={styles.inputContainer}>
-        {label && <span className={`${styles.label} ${isMobile ? 'is-mobile' : ''}`}>{label}</span>}
-        <input
-            type={type}
-            className={`${styles.input} ${isMobile ? 'is-mobile' : ''} ${error ? 'error' : ''}`}
-            placeholder={placeholder}
-            disabled={disabled}
-            value={value}
-            onChange={onChange}
-        />
+        {label && <span className={clsx(styles.label, isMobile && 'is-mobile')}>{label}</span>}
+        <div className={styles.fieldContainer}>
+            {icon && <Icon className={styles.icon} size={20} src={icon} />}
+            <input
+                type={type}
+                className={clsx(styles.input, isMobile && 'is-mobile',
+                    error && 'error', clearable && styles.clearableInput, icon && styles.iconInput)}
+                placeholder={placeholder}
+                disabled={disabled}
+                value={value}
+                onChange={handleChange}
+            />
+            {clearable && value !== '' && <Icon className={styles.clearIcon} onClick={clearInput} size={20} src={IconCloseCircle}/>}
+        </div>
         {bottomLabel && (
-            <span className={`${styles.bottomLabel} ${isMobile ? 'is-mobile' : ''} ${error ? 'error' : ''}`}>
+            <span className={clsx(styles.bottomLabel, isMobile && 'is-mobile', error && 'error')}>
                 {bottomLabel}
             </span>
         )}

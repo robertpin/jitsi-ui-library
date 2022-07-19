@@ -1,168 +1,217 @@
-import {makeStyles} from '@material-ui/core';
-import { withPixelLineHeight } from '../utils';
+import { makeStyles } from '@material-ui/core';
+import clsx from 'clsx';
+import React from 'react';
 import Icon from '../icons/components/Icon';
+import { withPixelLineHeight } from '../utils';
 
 interface ButtonProps {
-  text?: string;
 
-  icon?: Object;
+    /**
+     * Label used for accessibility.
+     */
+    accessibilityLabel: string;
 
-  type?: 'primary' | 'secondary' | 'tertiary' | 'destructive';
+    /**
+     * Whether or not the button is disabled.
+     */
+    disabled?: boolean;
 
-  onClick: () => void;
+    /**
+     * Whether or not the button should be full width.
+     */
+    fullWidth?: boolean,
 
-  disabled?: boolean;
+    /**
+     * The icon to be displayed on the button.
+     */
+    icon?: any;
 
-  size?: 'small' | 'medium' | 'large';
+    /**
+     * The id of the button.
+     */
+    id?: string;
+
+    /**
+     * Click callback.
+     */
+    onClick: () => void;
+
+    /**
+     * Which size the button should be.
+     */
+    size?: 'small' | 'medium' | 'large';
+
+    /**
+     * The text to be displayed on the button.
+     */
+    text?: string;
+
+    /**
+     * The type of button to be displayed.
+     */
+    type?: 'primary' | 'secondary' | 'tertiary' | 'destructive';
 }
 
 const useStyles = makeStyles((theme: any) => {
-  return {
-    button: {
-      backgroundColor: theme.palette.action01,
-      color: theme.palette.text01,
-      borderRadius: theme.shape.borderRadius,
-      padding: '10px 16px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      border: 0,
-      ...withPixelLineHeight(theme.typography.bodyShortBold),
-      transition: 'background .2s',
-      cursor: 'pointer',
+    return {
+        button: {
+            backgroundColor: theme.palette.action01,
+            color: theme.palette.text01,
+            borderRadius: theme.shape.borderRadius,
+            padding: '10px 16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: 0,
+            ...withPixelLineHeight(theme.typography.bodyShortBold),
+            transition: 'background .2s',
+            cursor: 'pointer',
 
-      '&:hover': {
-        backgroundColor: theme.palette.action01Hover
-      },
+            '&:hover': {
+                backgroundColor: theme.palette.action01Hover
+            },
 
-      '&:active': {
-        backgroundColor: theme.palette.action01Active
-      },
+            '&:active': {
+                backgroundColor: theme.palette.action01Active
+            },
 
-      '&:focus': {
-        outline: 0,
-        boxShadow: `0px 0px 0px 2px ${theme.palette.focus01}`
-      },
+            '&:focus': {
+                outline: 0,
+                boxShadow: `0px 0px 0px 2px ${theme.palette.focus01}`
+            },
 
-      '& svg': {
-        fill: theme.palette.icon01
-      }
-    },
+            '& svg': {
+                fill: theme.palette.icon01
+            }
+        },
 
-    primary: {},
+        primary: {},
 
-    secondary: {
-      backgroundColor: theme.palette.action02,
-      color: theme.palette.text04,
+        secondary: {
+            backgroundColor: theme.palette.action02,
+            color: theme.palette.text04,
 
-      '&:hover': {
-        backgroundColor: theme.palette.action02Hover
-      },
+            '&:hover': {
+                backgroundColor: theme.palette.action02Hover
+            },
 
-      '&:active': {
-        backgroundColor: theme.palette.action02Active
-      },
+            '&:active': {
+                backgroundColor: theme.palette.action02Active
+            },
 
-      '& svg': {
-        fill: theme.palette.icon04
-      }
-    },
+            '& svg': {
+                fill: theme.palette.icon04
+            }
+        },
 
-    tertiary: {
-      backgroundColor: theme.palette.action03,
+        tertiary: {
+            backgroundColor: theme.palette.action03,
 
-      '&:hover': {
-        backgroundColor: theme.palette.action03Hover
-      },
+            '&:hover': {
+                backgroundColor: theme.palette.action03Hover
+            },
 
-      '&:active': {
-        backgroundColor: theme.palette.action03Active
-      }
-    },
+            '&:active': {
+                backgroundColor: theme.palette.action03Active
+            }
+        },
 
-    destructive: {
-      backgroundColor: theme.palette.actionDanger,
+        destructive: {
+            backgroundColor: theme.palette.actionDanger,
 
-      '&:hover': {
-        backgroundColor: theme.palette.actionDangerHover
-      },
+            '&:hover': {
+                backgroundColor: theme.palette.actionDangerHover
+            },
 
-      '&:active': {
-        backgroundColor: theme.palette.actionDangerActive
-      }
-    },
+            '&:active': {
+                backgroundColor: theme.palette.actionDangerActive
+            }
+        },
 
-    disabled: {
-      backgroundColor: theme.palette.disabled01,
-      color: theme.palette.text03,
+        disabled: {
+            backgroundColor: theme.palette.disabled01,
+            color: theme.palette.text03,
 
-      '&:hover': {
-        backgroundColor: theme.palette.disabled01,
-        color: theme.palette.text03,
-      },
+            '&:hover': {
+                backgroundColor: theme.palette.disabled01,
+                color: theme.palette.text03
+            },
 
-      '&:active': {
-        backgroundColor: theme.palette.disabled01,
-        color: theme.palette.text03,
-      },
+            '&:active': {
+                backgroundColor: theme.palette.disabled01,
+                color: theme.palette.text03
+            },
 
-      '& svg': {
-        fill: theme.palette.icon03
-      }
-    },
+            '& svg': {
+                fill: theme.palette.icon03
+            }
+        },
 
-    iconButton: {
-      padding: '10px'
-    },
+        iconButton: {
+            padding: '10px'
+        },
 
-    textWithIcon: {
-      marginLeft: `${theme.spacing(2)}px`
-    },
+        textWithIcon: {
+            marginLeft: `${theme.spacing(2)}px`
+        },
 
-    small: {
-      padding: '8px 16px',
-      ...withPixelLineHeight(theme.typography.labelBold),
+        small: {
+            padding: '8px 16px',
+            ...withPixelLineHeight(theme.typography.labelBold),
 
-      '&.iconButton': {
-        padding: '6px'
-      }
-    },
+            '&.iconButton': {
+                padding: '6px'
+            }
+        },
 
-    medium: {},
+        medium: {},
 
-    large: {
-      padding: '13px 16px',
-      ...withPixelLineHeight(theme.typography.bodyShortBoldLarge),
+        large: {
+            padding: '13px 16px',
+            ...withPixelLineHeight(theme.typography.bodyShortBoldLarge),
 
-      '&.iconButton': {
-        padding: '14px'
-      }
-    }
-  }
-})
+            '&.iconButton': {
+                padding: '14px'
+            }
+        },
+
+        fullWidth: {
+            width: '100%'
+        }
+    };
+});
 
 const Button = ({
-  text,
-  icon,
-  type = 'primary',
-  disabled,
-  size = 'medium',
-  onClick
+    accessibilityLabel,
+    disabled,
+    fullWidth,
+    icon,
+    id,
+    onClick,
+    size = 'medium',
+    text,
+    type = 'primary'
 }: ButtonProps) => {
-  const styles = useStyles();
-  return (
-    <button
-      type="button"
-      className={`${styles.button} ${styles[type]} ${
-        disabled ? styles.disabled : ''} ${
-        icon && !text ? `${styles.iconButton} iconButton` : ''} ${styles[size]}`}
-      disabled={disabled}
-      onClick={onClick}
-      >
-      {icon && <Icon src={icon} style={{display: 'flex'}} />}
-      {text && <span className={icon ? styles.textWithIcon : ''}>{text}</span>}
-    </button>
-  );
+    const styles = useStyles();
+
+    return (
+        <button
+            aria-label = { accessibilityLabel }
+            className = { clsx(styles.button, styles[type],
+                disabled && styles.disabled,
+                icon && !text && `${styles.iconButton} iconButton`,
+                styles[size], fullWidth && styles.fullWidth) }
+            disabled = { disabled }
+            { ...(id ? { id } : {}) }
+            onClick = { onClick }
+            type = 'button'>
+            {icon && <Icon
+                size = { 20 }
+                src={icon}
+                style={{ display: 'flex' }} />}
+            {text && <span className = { icon ? styles.textWithIcon : '' }>{text}</span>}
+        </button>
+    );
 };
 
 export default Button;
