@@ -159,6 +159,8 @@ export default function Icon(props: Props) {
     const calculatedColor = color ?? styleColor ?? DEFAULT_COLOR;
     const calculatedSize = size ?? styleSize ?? DEFAULT_SIZE;
 
+    restStyle.color = calculatedColor;
+
     const onKeyPressHandler = useCallback(e => {
         if ((e.key === 'Enter' || e.key === ' ') && onClick) {
             e.preventDefault();

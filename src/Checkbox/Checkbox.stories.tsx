@@ -4,7 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Checkbox from './Checkbox';
 
 export default {
-  title: 'Jitsi UI/Checkbox - WIP',
+  title: 'Jitsi UI/Checkbox',
   component: Checkbox,
   argTypes: { onChange: { action: 'change'}}
 } as ComponentMeta<typeof Checkbox>;
@@ -20,5 +20,7 @@ const Template: ComponentStory<typeof Checkbox> = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {
-  label: 'Enabled'
+  label: 'Enabled',
+  disabled: false,
+  indeterminate: false
 };
