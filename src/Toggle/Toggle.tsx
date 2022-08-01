@@ -12,7 +12,7 @@ interface ToggleProps {
 
 const useStyles = makeStyles((theme: any) => {
     return {
-        button: {
+        container: {
             position: 'relative',
             backgroundColor: theme.palette.ui05,
             borderRadius: '12px',
@@ -22,8 +22,9 @@ const useStyles = makeStyles((theme: any) => {
             outline: 0,
             cursor: 'pointer',
             transition: '.3s',
+            display: 'inline-block',
 
-            '&:disabled': {
+            '&.disabled': {
                 backgroundColor: theme.palette.ui05,
                 cursor: 'default',
 
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme: any) => {
             }
         },
 
-        buttonOn: {
+        containerOn: {
             backgroundColor: theme.palette.action01
         },
 
@@ -65,6 +66,11 @@ const useStyles = makeStyles((theme: any) => {
             '&.is-mobile': {
                 left: '22px'
             }
+        },
+
+        checkbox: {
+            height: 0,
+            width: 0
         }
     }
 })
@@ -73,17 +79,15 @@ const Toggle = ({ id, checked, disabled, onChange}: ToggleProps) => {
     const styles = useStyles();
     const isMobile = isMobileBrowser();
 
-    const change = useCallback(() => {
-        onChange(!checked);
-    }, [checked]);
+    const change = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        onChange(e.target.checked);
+    }, []);
 
-    return <button
-        {...(id ? { id } : {})}
-        className={clsx(styles.button, checked && styles.buttonOn, isMobile && 'is-mobile')}
-        onClick={change}
-        disabled={disabled}>
+    return <label
+        className={clsx(styles.container, checked && styles.containerOn, isMobile && 'is-mobile', disabled && 'disabled')}>
+        <input type="checkbox" {...(id ? { id } : {})} disabled={disabled} className={styles.checkbox} checked={checked} onChange={change} />
         <div className={clsx('toggle', styles.toggle, checked && styles.toggleOn, isMobile && 'is-mobile')}/>
-    </button>
+    </label>
 };
 
 export default Toggle;
